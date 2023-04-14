@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "3005:3005"
+    depends_on:
+      - products
+      - stores
+    env_file:
+      - ./gateway/.env
+    networks:
+      - microservices_example
+  products:
+    build: ./microservice_2
+    networks:
+      - microservices_example
+  stores:
+    build: ./microservice_1
+    networks:
+      - microservices_example
+networks:
+  microservices_example:
